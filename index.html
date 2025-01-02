@@ -20,6 +20,10 @@ let colorX = 0; // 初始化 colorX，控制顏色的增減循環
 let music; // 用來儲存音樂
 let isMusicPlaying = false; // 控制音樂播放狀態
 
+let isPositionChanged = false; // 新增變數追蹤位置變化
+
+
+
 function setup() {
   createCanvas(windowWidth, windowHeight, WEBGL); // 3D 畫布
   menuGraphics = createGraphics(windowWidth, windowHeight); // 2D 畫布緩衝區
@@ -99,6 +103,39 @@ function drawMenu() {
   if (mouseX > menuOffset + 20 && mouseX < menuOffset + 220 && mouseY > 80 && mouseY < 120) {
     if (mouseIsPressed) {
       window.open('https://www.facebook.com/richard.liou.7', '_blank'); // 開啟網頁
+    }
+  }
+
+  // 檢查是否點擊「How to Operate」
+  if (mouseX > menuOffset + 20 && mouseX < menuOffset + 220 && mouseY > 140 && mouseY < 180) {
+    if (mouseIsPressed) {
+      // 根據 isPositionChanged 狀態決定位置
+      if (!isPositionChanged) {
+        menuGraphics.fill(50, 50, 50); // 設定文字顏色
+        menuGraphics.textSize(20); // 設定字體大小
+        menuGraphics.text(
+          'Slide the slider \nin the top right corner \nto adjust the size \nof the shapes.',
+          menuOffset + 20,
+          450
+        ); // 顯示操作說明
+        menuGraphics.text(
+          'Please press \n"Play Music"\nto start playing \nthe music.',
+          menuOffset + 20,
+          570
+        ); // 顯示音樂播放提示
+      } else {
+        menuGraphics.text(
+          'Slide the slider \nin the top right corner \nto adjust the size \nof the shapes.',
+          -300,
+          450
+        ); // 顯示操作說明
+        menuGraphics.text(
+          'Please press \n"Play Music"\nto start playing \nthe music.',
+          -300,
+          570
+        ); // 顯示音樂播放提示
+      }
+      isPositionChanged = !isPositionChanged; // 切換狀態
     }
   }
 

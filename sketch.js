@@ -10,7 +10,7 @@ let n = 4; // 控制立方體網格範圍
 
 // 顏色過渡的變數
 let colorTransition = 0;
-let size = 100; // 初始方塊大小
+let size = 50; // 初始方塊大小
 let spacing = 80; // 初始方塊間距
 let sizeSlider; // 滑竿控制方塊大小和間距
 

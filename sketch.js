@@ -35,7 +35,7 @@ function setup() {
   menuButton.style('height', '27px'); // 按鈕高度 (按比例縮小)
 
   // 創建滑竿來控制方塊大小和間距
-  sizeSlider = createSlider(50, 200, size, 1); // 滑竿範圍：50 到 200，初始值為 100
+  sizeSlider = createSlider(50, 200, 50, 1); // 滑竿範圍：50 到 200，初始值為 100
   sizeSlider.position(windowWidth - 170, 10); // 貼右側，位置調整到右上角
 
   // 加載音樂

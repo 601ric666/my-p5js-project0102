@@ -22,7 +22,8 @@ let isMusicPlaying = false; // 控制音樂播放狀態
 
 let isPositionChanged = false; // 新增變數追蹤位置變化
 
-
+let pressTime = 0;  // 儲存按下時間
+let isPressed = false; // 是否已經按下
 
 function setup() {
   createCanvas(windowWidth, windowHeight, WEBGL); // 3D 畫布
@@ -108,34 +109,30 @@ function drawMenu() {
 
   // 檢查是否點擊「How to Operate」
   if (mouseX > menuOffset + 20 && mouseX < menuOffset + 220 && mouseY > 140 && mouseY < 180) {
-    if (mouseIsPressed) {
-      // 根據 isPositionChanged 狀態決定位置
-      if (!isPositionChanged) {
-        menuGraphics.fill(50, 50, 50); // 設定文字顏色
-        menuGraphics.textSize(20); // 設定字體大小
-        menuGraphics.text(
-          'Slide the slider \nin the top right corner \nto adjust the size \nof the shapes.',
-          menuOffset + 20,
-          450
-        ); // 顯示操作說明
-        menuGraphics.text(
-          'Please press \n"Play Music"\nto start playing \nthe music.',
-          menuOffset + 20,
-          570
-        ); // 顯示音樂播放提示
-      } else {
-        menuGraphics.text(
-          'Slide the slider \nin the top right corner \nto adjust the size \nof the shapes.',
-          -300,
-          450
-        ); // 顯示操作說明
-        menuGraphics.text(
-          'Please press \n"Play Music"\nto start playing \nthe music.',
-          -300,
-          570
-        ); // 顯示音樂播放提示
-      }
-      isPositionChanged = !isPositionChanged; // 切換狀態
+    if (mouseIsPressed && !isPressed) {
+      pressTime = millis();  // 記錄按下的時間
+      isPressed = true;
+    }
+  }
+
+  if (isPressed) {
+    // 顯示操作說明
+    menuGraphics.fill(50, 50, 50);
+    menuGraphics.textSize(20);
+    menuGraphics.text(
+      'Slide the slider \nin the top right corner \nto adjust the size \nof the shapes.',
+      menuOffset + 20,
+      450
+    );
+    menuGraphics.text(
+      'Please press \n"Play Music"\nto start playing \nthe music.',
+      menuOffset + 20,
+      570
+    );
+
+    // 如果按下超過 5 秒，解除顯示
+    if (millis() - pressTime > 5000) {
+      isPressed = false;
     }
   }
 

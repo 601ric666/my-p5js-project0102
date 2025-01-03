@@ -115,7 +115,7 @@ function drawMenu() {
     }
   }
 
-  if (!isPressed) {
+if (isPressed) {
     // 顯示操作說明
     menuGraphics.fill(50, 50, 50);
     menuGraphics.textSize(20);
@@ -132,8 +132,9 @@ function drawMenu() {
 
     // 如果按下超過 5 秒，解除顯示
     if (millis() - pressTime > 5000) {
-      
+      isPressed = false;
     }
+  }
   }
 
   // 檢查是否點擊「Play Music」

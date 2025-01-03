@@ -132,7 +132,7 @@ function drawMenu() {
 
     // 如果按下超過 5 秒，解除顯示
     if (millis() - pressTime > 5000) {
-      isPressed = false;
+      
     }
   }
 

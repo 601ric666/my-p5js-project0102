@@ -21,6 +21,9 @@ let music; // 用來儲存音樂
 let isMusicPlaying = false; // 控制音樂播放狀態
 
 let isPositionChanged = false; // 新增變數追蹤位置變化
+
+
+
 function setup() {
   createCanvas(windowWidth, windowHeight, WEBGL); // 3D 畫布
   menuGraphics = createGraphics(windowWidth, windowHeight); // 2D 畫布緩衝區
@@ -91,11 +94,11 @@ function drawMenu() {
   menuGraphics.textSize(32);
   menuGraphics.text('About the Author', menuOffset + 20, 100);
   menuGraphics.text('How to Operate', menuOffset + 20, 160);
-
+  
   // Play Music 按鈕，當被點擊時播放音樂
   menuGraphics.textSize(32);
   menuGraphics.text('Play Music', menuOffset + 20, 220);
-
+  
   // 檢查是否點擊「About the Author」
   if (mouseX > menuOffset + 20 && mouseX < menuOffset + 220 && mouseY > 80 && mouseY < 120) {
     if (mouseIsPressed) {
@@ -135,6 +138,7 @@ function drawMenu() {
       isPositionChanged = !isPositionChanged; // 切換狀態
     }
   }
+
   // 檢查是否點擊「Play Music」
   if (mouseX > menuOffset + 20 && mouseX < menuOffset + 220 && mouseY > 200 && mouseY < 240) {
     if (mouseIsPressed && !isMusicPlaying) {
@@ -156,7 +160,7 @@ function draw3DContent() {
     for (let y = -n; y <= n; y++) {
       for (let z = -n; z <= n; z++) {
         push();
-
+        
         // 計算每顆方塊的位置
         translate(spacing * x, spacing * y, spacing * z); 
 

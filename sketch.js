@@ -105,7 +105,7 @@ function drawMenu() {
       window.open('https://www.facebook.com/richard.liou.7', '_blank'); // 開啟網頁
     }
   }
-
+/*
   // 檢查是否點擊「How to Operate」
   if (mouseX > menuOffset + 20 && mouseX < menuOffset + 220 && mouseY > 140 && mouseY < 180) {
     if (mouseIsPressed) {
@@ -138,6 +138,8 @@ function drawMenu() {
       isPositionChanged = !isPositionChanged; // 切換狀態
     }
   }
+
+  */
 
   // 檢查是否點擊「Play Music」
   if (mouseX > menuOffset + 20 && mouseX < menuOffset + 220 && mouseY > 200 && mouseY < 240) {

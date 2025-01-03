@@ -25,6 +25,12 @@ let isPositionChanged = false; // 新增變數追蹤位置變化
 let pressTime = 0;  // 儲存按下時間
 let isPressed = false; // 是否已經按下
 
+// 頻譜分析變數
+let fft;
+let lowFreq = 0;
+let midFreq = 0;
+let highFreq = 0;
+
 function setup() {
   createCanvas(windowWidth, windowHeight, WEBGL); // 3D 畫布
   menuGraphics = createGraphics(windowWidth, windowHeight); // 2D 畫布緩衝區
@@ -44,6 +50,9 @@ function setup() {
 
   // 加載音樂
   music = loadSound('Sunspots - Jeremy Blake.mp3');
+
+  // 初始化 FFT
+  fft = new p5.FFT();
 }
 
 function draw() {
@@ -74,6 +83,23 @@ function draw() {
   // 繪製2D選單
   drawMenu();
   image(menuGraphics, -width / 2, -height / 2); // 將2D畫布貼到主畫布上
+
+  // 分析音樂頻譜
+  if (music.isPlaying()) {
+    let spectrum = fft.analyze(); // 分析頻譜數據
+    lowFreq = fft.getEnergy("bass"); // 獲取低頻能量
+    midFreq = fft.getEnergy("mid");  // 獲取中頻能量
+    highFreq = fft.getEnergy("treble"); // 獲取高頻能量
+  }
+
+  // 顯示低頻、中頻、高頻能量值
+  push();
+  fill(255); // 設置文字顏色為白色
+  textSize(16); // 文字大小
+  text(`Low Frequency: ${lowFreq}`, -width / 2 + 20, height / 2 - 60); // 左下角顯示低頻
+  text(`Mid Frequency: ${midFreq}`, -width / 2 + 20, height / 2 - 40); // 左下角顯示中頻
+  text(`High Frequency: ${highFreq}`, -width / 2 + 20, height / 2 - 20); // 左下角顯示高頻
+  pop();
 }
 
 function toggleMenu() {
@@ -143,8 +169,9 @@ function drawMenu() {
       music.play(); // 播放音樂
       isMusicPlaying = true; // 音樂播放中
     }
+
   } else {
-    isMusicPlaying = false; // 如果沒有點擊
+    
   }
 }
 
@@ -178,8 +205,15 @@ function draw3DContent() {
         let g = map(y, -n, n, 50, colorIntensity);
         let b = map(z, -n, n, 50, colorIntensity);
 
-        // 設置外框顏色
-        stroke(r, g, b); // 設置外框顏色
+        
+        
+
+        if(isMusicPlaying){
+          stroke(r * lowFreq / 170, g * midFreq / 130, b * highFreq / 30); // 設置外框顏色
+        }else{
+          stroke(r, g, b); // 設置外框顏色 
+        }
+        
         noFill(); // 設置填充顏色為透明
 
         // 計算每個方塊的大小

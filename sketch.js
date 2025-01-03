@@ -115,7 +115,7 @@ function drawMenu() {
     }
   }
 
-  if (isPressed) {
+  if (!isPressed) {
     // 顯示操作說明
     menuGraphics.fill(50, 50, 50);
     menuGraphics.textSize(20);
